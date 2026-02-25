@@ -4,7 +4,7 @@ using FieldTeamEquipmentInventory.Interfaces;
 
 namespace FieldTeamEquipmentInventory.Services;
 
-public sealed class SQLiteDB : Database, IDatabase
+public class SQLiteDB : Database, IDatabase
 {
     private bool _disposed = false;
     public SQLiteDB() : base(
