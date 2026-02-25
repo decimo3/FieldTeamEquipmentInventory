@@ -65,7 +65,9 @@ public class ReportScreen : Page
                     EquipmentKind = t.Equipment.Kind,
                     EquipmentStatus = t.Equipment.Status,
                     IdEmployerFrom = t.IdEmployerFrom,
+                    EmployerFrom = t.EmployerFrom.FullName,
                     IdEmployerTo = t.IdEmployerTo,
+                    EmployerTo = t.EmployerTo.FullName,
                     Note = t.Note,
                 };
             }).ToList();
