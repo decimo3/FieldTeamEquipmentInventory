@@ -53,11 +53,31 @@ public class MainScreen : Page
     }
     private void HandleEvent()
     {
-        _btn_help.Click += (_, _) => NavigationService.Navigate(new HelpScreen());
-        _btn_enroll.Click += (_, _) => NavigationService.Navigate(new EnrollScreen());
-        _btn_equip.Click += (_, _) => NavigationService.Navigate(new EquipScreen());
-        _btn_entry.Click += (_, _) => NavigationService.Navigate(new AuthScreen());
-        _btn_report.Click += (_, _) => NavigationService.Navigate(new ReportScreen());
+        _btn_help.Click += (_, _) =>
+        {
+            var page = MainApplication.Host!.Services.GetRequiredService<HelpScreen>();
+            NavigationService.Navigate(page);
+        };
+        _btn_enroll.Click += (_, _) =>
+        {
+            var page = MainApplication.Host!.Services.GetRequiredService<EnrollScreen>();
+            NavigationService.Navigate(page);
+        };
+        _btn_equip.Click += (_, _) =>
+        {
+            var page = MainApplication.Host!.Services.GetRequiredService<EquipScreen>();
+            NavigationService.Navigate(page);
+        };
+        _btn_entry.Click += (_, _) =>
+        {
+            var page = MainApplication.Host!.Services.GetRequiredService<AuthScreen>();
+            NavigationService.Navigate(page);
+        };
+        _btn_report.Click += (_, _) =>
+        {
+            var page = MainApplication.Host!.Services.GetRequiredService<ReportScreen>();
+            NavigationService.Navigate(page);
+        };
         _btn_logout.Click += (_, _) => Application.Current.Shutdown();
     }
 }
