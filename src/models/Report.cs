@@ -9,7 +9,9 @@ public class Report
     public Equipment.StatusEnum EquipmentStatus { get; set; }
     public string Kit { get; set; }
     public int IdEmployerFrom { get; set; }
+    public string EmployerFrom { get; set; }
     public int IdEmployerTo { get; set; }
+    public string EmployerTo { get; set; }
     public string? Note { get; set; }
 
 }
