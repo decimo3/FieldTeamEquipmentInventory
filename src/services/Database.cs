@@ -194,33 +194,4 @@ public abstract class Database : IDatabase
         }
         return transactions;
     }
-    public List<Report> GetGrouping(string group)
-    {
-        var reports = new List<Report>();
-        using var command = connection.CreateCommand();
-        command.CommandText = "SELECT t.created_at, e.id, t.kind, t.from_employer, t.to_employer, e.kind, e.status, t.note, e.kit FROM equipments AS e LEFT JOIN transactions AS t ON e.id = t.id_equipment AND t.created_at = (SELECT MAX(tr.created_at) FROM transactions AS tr WHERE tr.id_equipment = e.id)";
-        AddParameter(command, "@value", group);
-        using var reader = command.ExecuteReader();
-        while (reader.Read())
-        {
-            reports.Add(new Report
-            {
-                    CreateAt: reader.IsDBNull(0) ? DateTime.MinValue : reader.GetDateTime(0),
-                    idEquipment: reader.IsDBNull(1) ? 0 : reader.GetInt64(1),
-                    kind: reader.IsDBNull(2) ? Transaction.KindEnum.Idle : (Transaction.KindEnum)reader.GetInt32(2),
-                    idEmployerFrom: reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
-                    idEmployerTo: reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
-                    equipment: new Equipment
-                    (
-                        id: reader.GetInt64(1),
-                        kind: (Equipment.KindEnum)reader.GetInt32(5),
-                        status: (Equipment.StatusEnum)reader.GetInt32(6),
-                        kit: reader.GetString(8)
-                    ),
-                    note: reader.IsDBNull(7) ? String.Empty : reader.GetString(7)
-                )
-            };
-        }
-        return transactions;
-    }
 }
