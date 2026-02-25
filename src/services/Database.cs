@@ -42,7 +42,7 @@ public abstract class Database : IDatabase
         {
             return new Employer
             (
-                registry: reader.GetString(0),
+                registry: reader.GetInt32(0),
                 fullname: reader.GetString(1),
                 template: reader.GetString(2),
                 createAt: reader.GetDateTime(3)
@@ -61,7 +61,7 @@ public abstract class Database : IDatabase
         {
             employers.Add(new Employer
             (
-                registry: reader.GetString(0),
+                registry: reader.GetInt32(0),
                 fullname: reader.GetString(1),
                 template: reader.GetString(2),
                 createAt: reader.GetDateTime(3)
