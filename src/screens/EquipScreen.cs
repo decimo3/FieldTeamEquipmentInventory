@@ -18,6 +18,7 @@ public class EquipScreen : Page
     private Button _btn_save = null;
     private Button _btn_back = null;
     private TextBox _txt_kits = null;
+    private Transaction.KindEnum _mem_kind = Transaction.KindEnum.Idle;
     public EquipScreen(IDatabase database)
     {
         _database = database;
@@ -64,6 +65,29 @@ public class EquipScreen : Page
     }
     private void HandleEvent()
     {
+        _txt_equip.PreviewTextInput += (s, e) =>
+        {
+            Validators.NumberInputOnly(s, e);
+            if (e.Text.Length > 5)
+            {
+                var id = long.Parse(e.Text);
+                var equip = _database.GetEquipment(id);
+                if (equip is not null)
+                {
+                    _sel_kind.Text = equip.Kind.ToString();
+                    _sel_kind.IsEnabled = false;
+                    _sel_status.Text = equip.Status.ToString();
+                    _sel_status.IsEnabled = false;
+                    _txt_kits.Text = equip.Kit.ToString();
+                    _mem_kind = _database.GetTransaction(id)!.Kind;
+                }
+                else
+                {
+                    _sel_kind.IsEnabled = true;
+                    _sel_status.IsEnabled = true;
+                }
+            }
+        };
         _btn_back.Click += (_, _) => NavigationService.GoBack();
         _btn_save.Click += (_, _) =>
         {
