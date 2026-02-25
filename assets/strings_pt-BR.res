@@ -69,8 +69,14 @@ ENTRY_SCREEN_EQUIP_400=O número do ID do equipamento é inválido! {0}
 ENTRY_SCREEN_EQUIP_404=Equipamento não foi encontrado!
 ENTRY_SCREEN_SAVE_EMPTY=Necessário adicionar alguma transação antes de salvar!
 ENTRY_SCREEN_EQUIP_KIT=O kit do equipamento informado é diferente dos anteriores!
-ENTRY_SCREEN_DIFF_KITS=O kit informado está diferente do armazenado!\n\nAtual: {0}\n\nEsperado: {1}
+ENTRY_SCREEN_DIFF_KITS=O kit informado está diferente do armazenado!\n\n{0}\n\nDeseja forçar a inserção?
 ENTRY_SCREEN_NO_FORCE=Operação cancelada pelo usuário!
+ENTRY_SCREEN_DIFF_EMPLOYER=O funcionário que está devolvendo é diferente do que retirou o kit!\n\nAtual: {0}\n\nEsperado: {1}\n\nDeseja continuar a inserção mesmo assim?
+ENTRY_SCREEN_DIFF_TRANSACTION=O equipamento não pode ser transacionado!\n\nERRO: {0}\n\nDeseja forçar a inserção mesmo assim?
+ENTRY_SCREEN_STATUS_HEAD=Identificador,       Tipo,  Situação
+ENTRY_SCREEN_STATUS_MISS=Faltando
+ENTRY_SCREEN_STATUS_FINE=Correto
+ENTRY_SCREEN_STATUS_MORE=Sobrando
 
 REPORT_SCREEN_HEADER_TXT=Relatório transações
 
