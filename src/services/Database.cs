@@ -146,6 +146,8 @@ public abstract class Database : IDatabase
         using var reader = command.ExecuteReader();
         if (reader.Read())
         {
+            var employer1 = GetEmployer(reader.GetInt32(3));
+            var employer2 = GetEmployer(reader.GetInt32(4));
             return new Transaction
                 (
                     timestamp: reader.GetDateTime(0),
@@ -160,7 +162,9 @@ public abstract class Database : IDatabase
                         status: (Equipment.StatusEnum)reader.GetInt32(6),
                         kit: reader.GetString(8)
                     ),
-                    note: reader.IsDBNull(7) ? String.Empty : reader.GetString(7)
+                    note: reader.IsDBNull(7) ? String.Empty : reader.GetString(7),
+                    employer1: employer1,
+                    employer2: employer2
                 );
         }
         return null;
@@ -174,6 +178,8 @@ public abstract class Database : IDatabase
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
+            var employer1 = GetEmployer(reader.GetInt32(3));
+            var employer2 = GetEmployer(reader.GetInt32(4));
             transactions.Add(new Transaction
                 (
                     timestamp: reader.IsDBNull(0) ? DateTime.MinValue : reader.GetDateTime(0),
@@ -188,7 +194,9 @@ public abstract class Database : IDatabase
                         status: (Equipment.StatusEnum)reader.GetInt32(6),
                         kit: reader.GetString(8)
                     ),
-                    note: reader.IsDBNull(7) ? String.Empty : reader.GetString(7)
+                    note: reader.IsDBNull(7) ? String.Empty : reader.GetString(7),
+                    employer1: employer1,
+                    employer2: employer2
                 )
             );
         }
