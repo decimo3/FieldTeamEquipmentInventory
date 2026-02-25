@@ -58,6 +58,7 @@ EQUIP_SCREEN_KIND_PLACEHOLDER=Digite o tipo do equipamento
 EQUIP_SCREEN_KIT_PLACEHOLDER=Informe o nome do KIT
 EQUIP_SCREEN_NOTE_PLACEHOLDER=Observações. Não é obrigatório, mas é recomendável.
 
+ENTRY_SCREEN_AUTH_FAIL=Dois funcionários precisam ser identificados para acessar essa tela!
 ENTRY_SCREEN_HEADER_TXT=Cadastrar transação
 ENTRY_SCREEN_EQUIP_PLACEHOLDER=Digite o ID do equipamento
 ENTRY_SCREEN_NOTE_TXT=Observações. Não é obrigatório, mas é recomendável.
