@@ -11,6 +11,8 @@ public class Transaction
     public int IdEmployerTo { get; set; }
     public string? Note { get; set; }
     public Equipment Equipment { get; set; }
+    public Employer EmployerFrom { get; set; }
+    public Employer EmployerTo { get; set; }
     public enum KindEnum { Idle = 0, Checkin = 1, Checkout = 2, ToRepair = 3, FromRepair = 4, Removed = 5 }
 
     public Transaction
@@ -21,7 +23,9 @@ public class Transaction
         int idEmployerFrom,
         int idEmployerTo,
         Equipment equipment,
-        string? note = null
+        string? note = null,
+        Employer? employer1 = null,
+        Employer? employer2 = null
     )
     {
         Timestamp = timestamp;
@@ -31,6 +35,8 @@ public class Transaction
         IdEmployerTo = idEmployerTo;
         Equipment = equipment;
         Note = note;
+        EmployerFrom = employer1;
+        EmployerTo = employer2;
     }
 
     public static void CanBeTransacted(Transaction? curr, Transaction next)
