@@ -20,7 +20,7 @@ public class EntryScreen : Page
     private Button _btn_back = null;
     private List<Transaction> transactions = new();
     private string _mem_kit = null;
-    private bool forceInsert = false;
+    private bool forceInsertTransaction = false;
     public EntryScreen(IDatabase database)
     {
         if (Hodor.From == 0 || Hodor.To == 0)
@@ -107,6 +107,27 @@ public class EntryScreen : Page
                 equipment: equipment,
                 note: (_txt_note.Text != Helpers.Resources.GetString("ENTRY_SCREEN_NOTE_TXT")) ? _txt_note.Text : null
             );
+
+            try
+            {
+                Transaction.CanBeTransacted(last_tx, transaction);
+            }
+            catch (InvalidOperationException error)
+            {
+                if (!forceInsertTransaction)
+                {
+                    var result = MessageBox.Show(Helpers.Resources.GetString("ENTRY_SCREEN_DIFF_TRANSACTION",
+                        error.Message), null, MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        forceInsertTransaction = true;
+                        AddTransaction();
+                        return;
+                    }
+                    throw new InvalidOperationException(Helpers.Resources.GetString("ENTRY_SCREEN_NO_FORCE"));
+                }
+            }
+
             transactions.Add(transaction);
             _sel_kind.IsEnabled = false;
             _btn_save.IsEnabled = true;
@@ -144,11 +165,6 @@ public class EntryScreen : Page
                 }
                 throw new InvalidOperationException(Helpers.Resources.GetString("ENTRY_SCREEN_NO_FORCE"));
             }
-
-            foreach (var transaction in transactions)
-            {
-                var last_tx = _database.GetTransaction(transaction.IdEquipment);
-                Transaction.CanBeTransacted(last_tx, transaction);
             }
             foreach (var transaction in transactions)
             {
@@ -156,6 +172,7 @@ public class EntryScreen : Page
             }
             Hodor.To = 0;
             ClearInputs();
+            forceInsertTransaction = false;
             NavigationService.RemoveBackEntry();
             NavigationService.GoBack();
         }
