@@ -1,10 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-
-using FieldTeamEquipmentInventory.Helpers;
+﻿using FieldTeamEquipmentInventory.Helpers;
 using FieldTeamEquipmentInventory.Interfaces;
 using FieldTeamEquipmentInventory.Models;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace FieldTeamEquipmentInventory.Screens;
 
