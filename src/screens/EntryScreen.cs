@@ -117,8 +117,15 @@ public class EntryScreen : Page
             {
                 if (!forceInsertDiffEmployer)
                 {
+                    var currentEmployer = _database.GetEmployer(Hodor.To) ??
+                        throw new InvalidOperationException();
+                    var previousEmployer = _database.GetEmployer(last_tx.IdEmployerTo) ??
+                        throw new InvalidOperationException();
+
                     var result = MessageBox.Show(Helpers.Resources.GetString("ENTRY_SCREEN_DIFF_EMPLOYER",
-                        Hodor.To, last_tx.IdEmployerTo), null, MessageBoxButton.YesNo);
+                        $"{currentEmployer.Registry} - {currentEmployer.FullName}",
+                        $"{previousEmployer.Registry} - {previousEmployer.FullName}"),
+                            null, MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
                         forceInsertDiffEmployer = true;
