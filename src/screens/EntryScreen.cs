@@ -95,8 +95,21 @@ public class EntryScreen : Page
 
             _mem_kit ??= equipment.Kit;
             if (equipment.Kit != _mem_kit)
-                throw new InvalidOperationException(
-                    Helpers.Resources.GetString("ENTRY_SCREEN_EQUIP_KIT"));
+            {
+                if (!forceInsertDiffKit)
+                {
+                    var result = MessageBox.Show(
+                        Helpers.Resources.GetString("ENTRY_SCREEN_EQUIP_KIT", _mem_kit, equipment.Kit),
+                            null, MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        forceInsertDiffKit = true;
+                        AddTransaction();
+                        return;
+                    }
+                    throw new InvalidOperationException(Helpers.Resources.GetString("ENTRY_SCREEN_NO_FORCE"));
+                }
+            }
 
             var last_tx = _database.GetTransaction(idEquipment);
             if (last_tx is not null && last_tx.IdEmployerTo != Hodor.To &&
