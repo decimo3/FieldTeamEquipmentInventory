@@ -193,55 +193,13 @@ public class EntryScreen : Page
 
             var expected_kit = _database.GetTransactions().Where(t => t.Equipment.Kit == _mem_kit).ToList();
 
-            var current_ids = transactions.Select(t => t.Equipment.Id).OrderBy(x => x).ToList();
-            var expected_ids = expected_kit.Select(t => t.Equipment.Id).OrderBy(x => x).ToList();
+            var dialog = new DiffDialog(transactions, expected_kit);
+            dialog.Owner = Window.GetWindow(this);
+            bool? result = dialog.ShowDialog();
 
-            var less = expected_ids.Except(current_ids).ToList();
-            var more = current_ids.Except(expected_ids).ToList();
-
-            if (less.Any() || more.Any())
-            {
-                if (!forceInsertDiffKit)
-                {
-                    var message = new System.Text.StringBuilder();
-                    message.AppendLine(
-                        Helpers.Resources.GetString("ENTRY_SCREEN_STATUS_HEAD"));
-
-                    // For each expected equipment, print line with Missing or OK
-                    foreach (var expected in expected_kit)
-                    {
-                        message.Append(expected.Equipment.Id.ToString("D12"));
-                        message.Append(", ");
-                        message.Append(expected.Equipment.Kind.ToString().PadLeft(12));
-                        message.Append(", ");
-                        message.AppendLine(less.Contains(expected.Equipment.Id) ?
-                            Helpers.Resources.GetString("ENTRY_SCREEN_STATUS_MISS") :
-                            Helpers.Resources.GetString("ENTRY_SCREEN_STATUS_FINE"));
-                    }
-
-                    // Now print any extra equipments that are in current but not expected
-                    foreach (var extraId in more)
-            {
-                        var tx = transactions.Single(t => t.Equipment.Id == extraId);
-                        message.Append(tx.Equipment.Id.ToString("D12"));
-                        message.Append(", ");
-                        message.Append(tx.Equipment.Kind.ToString().PadLeft(12));
-                        message.Append(", ");
-                        message.AppendLine(
-                            Helpers.Resources.GetString("ENTRY_SCREEN_STATUS_MORE"));
-                    }
-
-                    var result = MessageBox.Show(Helpers.Resources.GetString("ENTRY_SCREEN_DIFF_KITS",
-                        message.ToString()), null, MessageBoxButton.YesNo);
-                    if (result == MessageBoxResult.Yes)
-                {
-                        forceInsertDiffKit = true;
-                    SaveTransactions();
-                        return;
-                }
+            if (result != true)
                 throw new InvalidOperationException(Helpers.Resources.GetString("ENTRY_SCREEN_NO_FORCE"));
-            }
-            }
+
             foreach (var transaction in transactions)
             {
                 _database.AddTransaction(transaction);
