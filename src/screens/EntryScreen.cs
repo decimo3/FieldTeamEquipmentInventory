@@ -20,6 +20,7 @@ public class EntryScreen : Page
     private Button _btn_back = null;
     private List<Transaction> transactions = new();
     private string _mem_kit = null;
+    private bool forceInsertDiffEmployer = false;
     private bool forceInsertTransaction = false;
     public EntryScreen(IDatabase database)
     {
@@ -97,6 +98,24 @@ public class EntryScreen : Page
                 throw new InvalidOperationException(
                     Helpers.Resources.GetString("ENTRY_SCREEN_EQUIP_KIT"));
 
+            var last_tx = _database.GetTransaction(idEquipment);
+            if (last_tx is not null && last_tx.IdEmployerTo != Hodor.To &&
+                (Transaction.KindEnum)_sel_kind.SelectedValue == Transaction.KindEnum.Checkout)
+            {
+                if (!forceInsertDiffEmployer)
+                {
+                    var result = MessageBox.Show(Helpers.Resources.GetString("ENTRY_SCREEN_DIFF_EMPLOYER",
+                        Hodor.To, last_tx.IdEmployerTo), null, MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        forceInsertDiffEmployer = true;
+                        AddTransaction();
+                        return;
+                    }
+                    throw new InvalidOperationException(Helpers.Resources.GetString("ENTRY_SCREEN_NO_FORCE"));
+                }
+            }
+
             var transaction = new Transaction
             (
                 timestamp: DateTime.Now,
@@ -173,6 +192,7 @@ public class EntryScreen : Page
             Hodor.To = 0;
             ClearInputs();
             forceInsertTransaction = false;
+            forceInsertDiffEmployer = false;
             NavigationService.RemoveBackEntry();
             NavigationService.GoBack();
         }
