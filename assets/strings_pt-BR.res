@@ -54,14 +54,15 @@ ENROLL_SCREEN_BACK_BTN=Voltar
 
 EQUIP_SCREEN_TITLE_LBL=Cadastrar equipamento
 EQUIP_SCREEN_EQUIP_PLACEHOLDER=Digite o ID do equipamento
-EQUIP_SCREEN_KIND_PLACEHOLDER=Digite o tipo do equipamento
-EQUIP_SCREEN_KIT_PLACEHOLDER=Informe o nome do KIT
-EQUIP_SCREEN_NOTE_PLACEHOLDER=Observações. Não é obrigatório, mas é recomendável.
+EQUIP_SCREEN_KIND_PLACEHOLDER=Selecione o tipo do equipamento
+EQUIP_SCREEN_STATUS_PLACEHOLDER=Selecione o estado do equipamento
+EQUIP_SCREEN_KIT_PLACEHOLDER=Digite o nome do KIT
+EQUIP_SCREEN_NOTE_PLACEHOLDER=Observações (opcional)
 
 ENTRY_SCREEN_AUTH_FAIL=Dois funcionários precisam ser identificados para acessar essa tela!
 ENTRY_SCREEN_HEADER_TXT=Cadastrar transação
 ENTRY_SCREEN_EQUIP_PLACEHOLDER=Digite o ID do equipamento
-ENTRY_SCREEN_NOTE_TXT=Observações. Não é obrigatório, mas é recomendável.
+ENTRY_SCREEN_NOTE_TXT=Observações (opcional)
 ENTRY_SCREEN_NEXT_BTN=Próximo
 ENTRY_SCREEN_KIND_400=É necessário selecionar um tipo de transação!
 ENTRY_SCREEN_STATUS_400=É necessário selecionar um tipo de situação!
