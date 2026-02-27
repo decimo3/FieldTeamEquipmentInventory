@@ -68,9 +68,9 @@ public class EquipScreen : Page
         _txt_equip.PreviewTextInput += (s, e) =>
         {
             Validators.NumberInputOnly(s, e);
-            if (e.Text.Length > 5)
+            if (_txt_equip.Text.Length > 5)
             {
-                var id = long.Parse(e.Text);
+                var id = long.Parse(_txt_equip.Text + e.Text);
                 var equip = _database.GetEquipment(id);
                 if (equip is not null)
                 {
