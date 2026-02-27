@@ -24,7 +24,9 @@ public abstract class Database : IDatabase
     public void AddEmployer(Employer employer)
     {
         using var command = connection.CreateCommand();
-        command.CommandText = "INSERT INTO employers (id, fullname, biometric, created_at) VALUES (@id, @name, @biometric, @created)";
+        command.CommandText = (GetEquipment(employer.Registry) is not null) ?
+            "UPDATE employers SET fullname = @name, biometric = @biometric, created_at = @created WHERE id = @id " :
+            "INSERT INTO employers (id, fullname, biometric, created_at) VALUES (@id, @name, @biometric, @created)";
         AddParameter(command, "@id", employer.Registry);
         AddParameter(command, "@name", employer.FullName);
         AddParameter(command, "@biometric", employer.Template);
@@ -72,7 +74,9 @@ public abstract class Database : IDatabase
     public void AddEquipment(Equipment equipment)
     {
         using var command = connection.CreateCommand();
-        command.CommandText = "INSERT INTO equipments (id, kind, status, kit) VALUES (@id, @kind, @status, @kit)";
+        command.CommandText = (GetEquipment(equipment.Id) is not null) ?
+            "UPDATE equipments SET kind = @kind, status = @status, kit = @kit WHERE id = @id" :
+            "INSERT INTO equipments (id, kind, status, kit) VALUES (@id, @kind, @status, @kit)";
         AddParameter(command, "@id", equipment.Id);
         AddParameter(command, "@kind", (int)equipment.Kind);
         AddParameter(command, "@status", (int)equipment.Status);
