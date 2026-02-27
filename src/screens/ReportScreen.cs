@@ -38,6 +38,7 @@ public class ReportScreen : Page
 
         _tbl_report = new DataGrid
         {
+            Margin = new Thickness(left: 0, top: 0, right: 0, bottom: 20),
             AutoGenerateColumns = true,
             ItemsSource = GetReport(),
             IsReadOnly = true

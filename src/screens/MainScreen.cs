@@ -38,37 +38,42 @@ public class MainScreen : Page
         _btn_help = new Button
         {
             Height = 40,
-        _btn_report = new Button { Content = Helpers.Resources.GetString("MAIN_SCREEN_REPORT_BTN"), Height = 40 };
+            Margin = new Thickness(0, 10, 0, 10),
             Content = Helpers.Resources.GetString("MAIN_SCREEN_HELP_BTN"),
         };
 
         _btn_enroll = new Button
         {
             Height = 40,
+            Margin = new Thickness(0, 10, 0, 10),
             Content = Helpers.Resources.GetString("MAIN_SCREEN_ENROLL_BTN"),
         };
 
         _btn_equip = new Button
         {
             Height = 40,
+            Margin = new Thickness(0, 10, 0, 10),
             Content = Helpers.Resources.GetString("MAIN_SCREEN_EQUIP_BTN"),
         };
 
         _btn_entry = new Button
         {
             Height = 40,
+            Margin = new Thickness(0, 10, 0, 10),
             Content = Helpers.Resources.GetString("MAIN_SCREEN_ENTRY_BTN"),
         };
 
         _btn_report = new Button
         {
             Height = 40,
+            Margin = new Thickness(0, 10, 0, 10),
             Content = Helpers.Resources.GetString("MAIN_SCREEN_REPORT_BTN"),
         };
 
         _btn_logout = new Button
         {
             Height = 40,
+            Margin = new Thickness(0, 10, 0, 10),
             Content = Helpers.Resources.GetString("MAIN_SCREEN_LOGOUT_BTN"),
         };
 
