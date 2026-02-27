@@ -38,25 +38,76 @@ public class EquipScreen : Page
             Content = Helpers.Resources.GetString("EQUIP_SCREEN_TITLE_LBL"),
         };
 
-        _txt_equip = new TextBox { Text = Helpers.Resources.GetString("EQUIP_SCREEN_EQUIP_PLACEHOLDER"), AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+        var _lbl_equip = new Label
+        {
+            Target = _txt_equip,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("EQUIP_SCREEN_EQUIP_PLACEHOLDER")
+        };
+
+        _txt_equip = new TextBox { AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+
+        var _lbl_kind = new Label
+        {
+            Target = _sel_kind,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("EQUIP_SCREEN_KIND_PLACEHOLDER")
+        };
 
         _sel_kind = new ComboBox { ItemsSource = Enum.GetValues<Equipment.KindEnum>(), Height = 40 };
 
+        var _lbl_status = new Label
+        {
+            Target = _sel_status,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("EQUIP_SCREEN_STATUS_PLACEHOLDER")
+        };
+
         _sel_status = new ComboBox { ItemsSource = Enum.GetValues<Equipment.StatusEnum>(), Height = 40 };
 
-        _txt_kits = new TextBox { Text = Helpers.Resources.GetString("EQUIP_SCREEN_KIT_PLACEHOLDER"), AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+        var _lbl_kits = new Label
+        {
+            Target = _txt_kits,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("EQUIP_SCREEN_KIT_PLACEHOLDER")
+        };
 
-        _txt_note = new TextBox { Text = Helpers.Resources.GetString("EQUIP_SCREEN_NOTE_PLACEHOLDER"), AcceptsReturn = true, TextWrapping = TextWrapping.Wrap, Height = 80 };
+        _txt_kits = new TextBox { AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+
+        var _lbl_note = new Label
+        {
+            Target = _txt_note,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("EQUIP_SCREEN_NOTE_PLACEHOLDER")
+        };
+
+        _txt_note = new TextBox
+        {
+            Height = 80,
+            AcceptsReturn = true,
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 0, 0, 10)
+        };
 
         _btn_save = new Button { Content = Helpers.Resources.GetString("GLOBAL_SCREEN_SAVE_BTN"), Height = 40 };
 
         _btn_back = new Button { Content = Helpers.Resources.GetString("GLOBAL_SCREEN_BACK_BTN"), Height = 40 };
 
         stack.Children.Add(_lbl_header);
+        stack.Children.Add(_lbl_equip);
         stack.Children.Add(_txt_equip);
+        stack.Children.Add(_lbl_kind);
         stack.Children.Add(_sel_kind);
+        stack.Children.Add(_lbl_status);
         stack.Children.Add(_sel_status);
+        stack.Children.Add(_lbl_kits);
         stack.Children.Add(_txt_kits);
+        stack.Children.Add(_lbl_note);
         stack.Children.Add(_txt_note);
         stack.Children.Add(_btn_save);
         stack.Children.Add(_btn_back);

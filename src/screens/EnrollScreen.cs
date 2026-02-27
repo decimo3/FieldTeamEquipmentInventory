@@ -53,12 +53,36 @@ public class EnrollScreen : Page
 
 
         _previewImage = new Image { Width = 320, Height = 240, Margin = new Thickness(0, 10, 0, 10) };
-        _lbl_status = new Label { Content = Helpers.Resources.GetString("ENROLL_SCREEN_FINGER_WAIT_LBL"), Height = 40, HorizontalAlignment = HorizontalAlignment.Center };
+
+        _lbl_status = new Label
+        {
+            Height = 40,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Content = Helpers.Resources.GetString("ENROLL_SCREEN_FINGER_WAIT_LBL"),
+        };
 
         var rightStack = new StackPanel { Margin = new Thickness(20), VerticalAlignment = VerticalAlignment.Center };
 
-        _txt_fullName = new TextBox { Text = Helpers.Resources.GetString("ENROLL_SCREEN_FULLNAME_PLACEHOLDER"), AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
-        _txt_registry = new TextBox { Text = Helpers.Resources.GetString("ENROLL_SCREEN_REGISTRY_PLACEHOLDER"), AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+        var _lbl_name = new Label
+        {
+            Target = _txt_fullName,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("ENROLL_SCREEN_FULLNAME_PLACEHOLDER")
+        };
+
+        _txt_fullName = new TextBox { AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+
+        var _lbl_registry = new Label
+        {
+            Target = _txt_registry,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("ENROLL_SCREEN_REGISTRY_PLACEHOLDER")
+        };
+
+        _txt_registry = new TextBox { AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+
         _btn_finger = new Button { Content = Helpers.Resources.GetString("ENROLL_SCREEN_FINGER_BTN"), Height = 40 };
         _btn_save = new Button { Content = Helpers.Resources.GetString("ENROLL_SCREEN_SAVE_BTN"), Height = 40 };
         _btn_back = new Button { Content = Helpers.Resources.GetString("ENROLL_SCREEN_BACK_BTN"), Height = 40 };
@@ -67,7 +91,9 @@ public class EnrollScreen : Page
         leftStack.Children.Add(_previewImage);
         leftStack.Children.Add(_lbl_status);
         // Add all the others controls to right stack
+        rightStack.Children.Add(_lbl_name);
         rightStack.Children.Add(_txt_fullName);
+        rightStack.Children.Add(_lbl_registry);
         rightStack.Children.Add(_txt_registry);
         rightStack.Children.Add(_btn_finger);
         rightStack.Children.Add(_btn_save);
