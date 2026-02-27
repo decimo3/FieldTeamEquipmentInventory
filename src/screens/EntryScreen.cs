@@ -44,14 +44,52 @@ public class EntryScreen : Page
             Content = Helpers.Resources.GetString("ENTRY_SCREEN_HEADER_TXT"),
         };
 
+        var _lbl_kind = new Label
+        {
+            Target = _sel_kind,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("ENTRY_SCREEN_KIND_PLACEHOLDER")
+        };
+
         _sel_kind = new ComboBox { ItemsSource = Enum.GetValues<Transaction.KindEnum>(), Height = 40 };
 
-        _txt_equip = new TextBox { Text = Helpers.Resources.GetString("ENTRY_SCREEN_EQUIP_PLACEHOLDER"), AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
+        var _lbl_equip = new Label
+        {
+            Target = _txt_equip,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("ENTRY_SCREEN_EQUIP_PLACEHOLDER")
+        };
 
-        _sel_status = new ComboBox { ItemsSource = Enum.GetValues<Equipment.StatusEnum>(), SelectedItem = Equipment.StatusEnum.Ok, Height = 40 };
+        _txt_equip = new TextBox { AcceptsReturn = false, TextWrapping = TextWrapping.NoWrap, Height = 40 };
 
-        _txt_note = new TextBox { Text = Helpers.Resources.GetString("ENTRY_SCREEN_NOTE_TXT"), AcceptsReturn = true, TextWrapping = TextWrapping.Wrap, Height = 80 };
-    
+        var _lbl_status = new Label
+        {
+            Target = _sel_status,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("ENTRY_SCREEN_STATUS_PLACEHOLDER")
+        };
+
+        _sel_status = new ComboBox { ItemsSource = Enum.GetValues<Equipment.StatusEnum>(), Height = 40 };
+
+        var _lbl_note = new Label
+        {
+            Target = _txt_note,
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            Content = Helpers.Resources.GetString("ENTRY_SCREEN_NOTE_TXT")
+        };
+
+        _txt_note = new TextBox
+        {
+            Height = 80,
+            AcceptsReturn = true,
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(0, 0, 0, 10)
+        };
+
         _btn_next = new Button { Content = Helpers.Resources.GetString("ENTRY_SCREEN_NEXT_BTN"), Height = 40 };
     
         _btn_save = new Button { Content = Helpers.Resources.GetString("GLOBAL_SCREEN_SAVE_BTN"), Height = 40, IsEnabled = false };
@@ -59,9 +97,13 @@ public class EntryScreen : Page
         _btn_back = new Button { Content = Helpers.Resources.GetString("GLOBAL_SCREEN_BACK_BTN"), Height = 40 };
         
         stack.Children.Add(_lbl_header);
+        stack.Children.Add(_lbl_kind);
         stack.Children.Add(_sel_kind);
+        stack.Children.Add(_lbl_equip);
         stack.Children.Add(_txt_equip);
+        stack.Children.Add(_lbl_status);
         stack.Children.Add(_sel_status);
+        stack.Children.Add(_lbl_note);
         stack.Children.Add(_txt_note);
         stack.Children.Add(_btn_next);
         stack.Children.Add(_btn_save);
@@ -71,9 +113,9 @@ public class EntryScreen : Page
     }
     private void ClearInputs()
     {
-        _txt_equip.Text = Helpers.Resources.GetString("ENTRY_SCREEN_EQUIP_PLACEHOLDER");
+        _txt_equip.Text = string.Empty;
         _sel_status.SelectedValue = null;
-        _txt_note.Text = Helpers.Resources.GetString("ENTRY_SCREEN_NOTE_TXT");
+        _txt_note.Text = string.Empty;
     }
     private void AddTransaction()
     {
