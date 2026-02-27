@@ -34,12 +34,43 @@ public class MainScreen : Page
             Margin = new Thickness(left: 0, top:20, right:0, bottom:20),
             Content = Helpers.Resources.GetString("MAIN_SCREEN_HEAD_TXT"),
         };
-        _btn_help = new Button { Content = Helpers.Resources.GetString("MAIN_SCREEN_HELP_BTN"), Height = 40 };
-        _btn_enroll = new Button { Content = Helpers.Resources.GetString("MAIN_SCREEN_ENROLL_BTN"), Height = 40 };
-        _btn_equip = new Button { Content = Helpers.Resources.GetString("MAIN_SCREEN_EQUIP_BTN"), Height = 40 };
-        _btn_entry = new Button { Content = Helpers.Resources.GetString("MAIN_SCREEN_ENTRY_BTN"), Height = 40 };
+
+        _btn_help = new Button
+        {
+            Height = 40,
         _btn_report = new Button { Content = Helpers.Resources.GetString("MAIN_SCREEN_REPORT_BTN"), Height = 40 };
-        _btn_logout = new Button { Content = Helpers.Resources.GetString("MAIN_SCREEN_LOGOUT_BTN"), Height = 40 };
+            Content = Helpers.Resources.GetString("MAIN_SCREEN_HELP_BTN"),
+        };
+
+        _btn_enroll = new Button
+        {
+            Height = 40,
+            Content = Helpers.Resources.GetString("MAIN_SCREEN_ENROLL_BTN"),
+        };
+
+        _btn_equip = new Button
+        {
+            Height = 40,
+            Content = Helpers.Resources.GetString("MAIN_SCREEN_EQUIP_BTN"),
+        };
+
+        _btn_entry = new Button
+        {
+            Height = 40,
+            Content = Helpers.Resources.GetString("MAIN_SCREEN_ENTRY_BTN"),
+        };
+
+        _btn_report = new Button
+        {
+            Height = 40,
+            Content = Helpers.Resources.GetString("MAIN_SCREEN_REPORT_BTN"),
+        };
+
+        _btn_logout = new Button
+        {
+            Height = 40,
+            Content = Helpers.Resources.GetString("MAIN_SCREEN_LOGOUT_BTN"),
+        };
 
         stack.Children.Add(_lbl_header);
         stack.Children.Add(_btn_enroll);
@@ -58,26 +89,31 @@ public class MainScreen : Page
             var page = MainApplication.Host!.Services.GetRequiredService<HelpScreen>();
             NavigationService.Navigate(page);
         };
+
         _btn_enroll.Click += (_, _) =>
         {
             var page = MainApplication.Host!.Services.GetRequiredService<EnrollScreen>();
             NavigationService.Navigate(page);
         };
+
         _btn_equip.Click += (_, _) =>
         {
             var page = MainApplication.Host!.Services.GetRequiredService<EquipScreen>();
             NavigationService.Navigate(page);
         };
+
         _btn_entry.Click += (_, _) =>
         {
             var page = MainApplication.Host!.Services.GetRequiredService<AuthScreen>();
             NavigationService.Navigate(page);
         };
+
         _btn_report.Click += (_, _) =>
         {
             var page = MainApplication.Host!.Services.GetRequiredService<ReportScreen>();
             NavigationService.Navigate(page);
         };
+
         _btn_logout.Click += (_, _) => Application.Current.Shutdown();
     }
 }

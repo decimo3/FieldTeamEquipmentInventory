@@ -36,7 +36,12 @@ public class ReportScreen : Page
             Content = Helpers.Resources.GetString("REPORT_SCREEN_HEADER_TXT"),
         };
 
-        _tbl_report = new DataGrid { AutoGenerateColumns = true, ItemsSource = GetReport(), IsReadOnly = true };
+        _tbl_report = new DataGrid
+        {
+            AutoGenerateColumns = true,
+            ItemsSource = GetReport(),
+            IsReadOnly = true
+        };
 
         _btn_export = new Button { Content = Helpers.Resources.GetString("GLOBAL_SCREEN_EXPORT_BTN"), Height = 40 };
 
