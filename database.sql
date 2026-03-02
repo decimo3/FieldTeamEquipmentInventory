@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     from_employer INTEGER NOT NULL,
     to_employer INTEGER NOT NULL,
     note TEXT DEFAULT NULL,
-    FOREIGN KEY (id_equipment) REFERENCES equipments (id)
+    FOREIGN KEY (id_equipment) REFERENCES equipments (id),
 	FOREIGN KEY (from_employer) REFERENCES employers (id),
 	FOREIGN KEY (to_employer) REFERENCES employers (id)
 );
