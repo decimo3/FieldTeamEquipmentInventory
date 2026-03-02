@@ -25,6 +25,7 @@ public class EnrollScreen : Page
     private CancellationTokenSource _cts;
     private String _template = null;
     private Image _previewImage = null;
+    private Employer _previous = null;
 
 
     public EnrollScreen(IDatabase database, IBiometrics biometrics)
@@ -162,7 +163,29 @@ public class EnrollScreen : Page
     private void HandleEvent()
     {
         _txt_fullName.PreviewTextInput += Validators.CharacterInputOnly;
-        _txt_registry.PreviewTextInput += Validators.NumberInputOnly;
+        _txt_registry.PreviewTextInput += (s, e) =>
+        {
+            Validators.NumberInputOnly(s, e);
+            if (_txt_registry.Text.Length > 3)
+            {
+                var id = int.Parse(_txt_registry.Text + e.Text);
+                var emp = _database.GetEmployer(id);
+                if (emp is not null)
+                {
+                    _previous = new(id, _txt_fullName.Text, _template, DateTime.Now);
+                    _template = emp.Template;
+                    _txt_fullName.Text = emp.FullName;
+                    _txt_registry.Text = emp.Registry.ToString();
+                    return;
+                }
+                if (_previous is not null)
+                {
+                    _template = _previous.Template;
+                    _txt_fullName.Text = _previous.FullName;
+                    _txt_registry.Text = _previous.Registry.ToString();
+                }
+            }
+        };
         _btn_finger.Click += async (_, _) => await GetBiometric();
         _btn_save.Click += async (_, _) => await SaveEmployer();
         _btn_back.Click += (_, _) => NavigationService.GoBack();
