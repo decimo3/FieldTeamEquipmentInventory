@@ -13,10 +13,13 @@ public partial class MainApplication : Application
     public static IHost? Host { get; private set; }
     public MainApplication()
 	{
+        // configure Serilog logger
+        Logger.Configure();
         Host = Microsoft.Extensions.Hosting.Host
             .CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
+                services.AddSingleton(Serilog.Log.Logger);
                 services.AddSingleton<MainWindow>();
                 services.AddTransient<AuthScreen>();
                 services.AddTransient<MainScreen>();
@@ -59,6 +62,7 @@ public partial class MainApplication : Application
     protected override async void OnExit(ExitEventArgs e)
     {
         await Host!.StopAsync();
+        Logger.Shutdown();
         Host.Dispose();
         base.OnExit(e);
     }
