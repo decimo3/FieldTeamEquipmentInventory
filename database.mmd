@@ -1,0 +1,50 @@
+erDiagram
+
+    employers {
+        INTEGER id PK
+        TEXT fullname
+        TEXT biometric
+        TIMESTAMP created_at
+    }
+
+    equipment_kinds {
+        INTEGER id PK
+        TEXT kind
+    }
+
+    equipment_status {
+        INTEGER id PK
+        TEXT status
+    }
+
+    equipments {
+        INTEGER id PK
+        INTEGER id_kind FK
+        INTEGER id_status FK
+        TEXT kit
+    }
+
+    transaction_kinds {
+        INTEGER id PK
+        TEXT kind
+    }
+
+    transactions {
+        INTEGER id PK
+        TIMESTAMP created_at
+        INTEGER id_equipment FK
+        INTEGER id_kind FK
+        INTEGER from_employer FK
+        INTEGER to_employer FK
+        TEXT note
+    }
+
+    employers ||--o{ transactions : "from_employer"
+    employers ||--o{ transactions : "to_employer"
+
+    equipment_kinds ||--o{ equipments : "kind"
+    equipment_status ||--o{ equipments : "status"
+
+    equipments ||--o{ transactions : "equipment"
+
+    transaction_kinds ||--o{ transactions : "transaction type"
