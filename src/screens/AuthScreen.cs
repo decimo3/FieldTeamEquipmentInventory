@@ -91,7 +91,8 @@ public class AuthScreen : Page
                     else
                         Hodor.From = employer.Registry;
 
-                    await Task.Delay(3_000, _cts.Token);
+                    MessageBox.Show(Helpers.Resources.GetString("AUTH_SCREEN_AUTH_SUCCESS_MSG",
+                        employer.Registry, employer.FullName));
 
                     Page page = !isAuthenticated ?
                         MainApplication.Host!.Services.GetRequiredService<MainScreen>() :
