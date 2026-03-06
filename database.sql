@@ -55,3 +55,35 @@ CREATE TABLE IF NOT EXISTS transactions (
 );
 
 CREATE INDEX IF NOT EXISTS idx_transactions_equipment ON transactions (id_equipment, created_at DESC);
+
+CREATE VIEW view_report AS
+SELECT
+    t.created_at,
+    tk.kind AS transaction_kind,
+    e.id AS id_equipment,
+    ek.kind AS equipment_kind,
+    e.kit AS equipment_kit,
+    ep1.id AS id_employer_from,
+    ep1.fullname AS name_employer_from,
+    ep2.id AS id_employer_to,
+    ep2.fullname AS name_employer_to,
+    es.status AS equipment_status,
+    t.note
+FROM equipments AS e
+LEFT JOIN transactions AS t
+    ON e.id = t.id_equipment
+    AND t.created_at = (
+        SELECT MAX(tr.created_at)
+        FROM transactions AS tr
+        WHERE tr.id_equipment = e.id
+    )
+LEFT JOIN transaction_kinds AS tk
+    ON tk.id = t.id_kind
+LEFT JOIN equipment_kinds AS ek
+    ON ek.id = e.id_kind
+LEFT JOIN equipment_status AS es
+    ON es.id = e.id_status
+LEFT JOIN employers AS ep1
+    ON t.from_employer = ep1.id
+LEFT JOIN employers AS ep2
+    ON t.to_employer = ep2.id;
