@@ -38,7 +38,7 @@ public class FacialRecognition : IBiometrics
     {
         using var frame = new Mat();
         // _capture.Read(frame);
-        // Discart 3 frames
+        // Discard 5 frames
         for (int i = 0; i < 5; i++)
             _capture.Grab();
 
@@ -72,6 +72,7 @@ public class FacialRecognition : IBiometrics
         {
             try
             {
+                Capture(); // Redundancy capture discard
                 var frame = Mat.FromImageData(Capture());
                 try
                 {
@@ -199,6 +200,7 @@ public class FacialRecognition : IBiometrics
         {
             try
             {
+                Capture(); // Redundancy capture discard
                 var bytes = Capture();
                 var mat = Cv2.ImDecode(bytes, ImreadModes.Grayscale);
                 samples.Add(mat);
@@ -230,6 +232,7 @@ public class FacialRecognition : IBiometrics
 
             try
             {
+                await CaptureAsync(callback, cls); // Redundancy capture discard
                 var bytes = await CaptureAsync(callback, cls);
                 if (bytes is null)
                     return null;
