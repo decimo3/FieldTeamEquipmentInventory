@@ -5,24 +5,53 @@ CREATE TABLE IF NOT EXISTS employers (
     created_at TIMESTAMP NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS equipment_kinds (
+    id INTEGER PRIMARY KEY,
+    kind TEXT NOT NULL
+);
+
+INSERT INTO equipment_kinds VALUES
+(1, 'Aferidor DR'), (2, 'Amperímetro'), (3, 'Maquineta'),
+(4, 'Sequencímetro'), (5, 'Smartphone');
+
+CREATE TABLE IF NOT EXISTS equipment_status (
+    id INTEGER PRIMARY KEY,
+    status TEXT NOT NULL
+);
+
+INSERT INTO equipment_status VALUES
+(1, 'OK'), (2, 'Danificado'), (3, 'Quebrado');
+
 CREATE TABLE IF NOT EXISTS equipments (
     id INTEGER PRIMARY KEY,
-    kind INTEGER NOT NULL,
-    status INTEGER NOT NULL,
-    kit TEXT NOT NULL
+    id_kind INTEGER NOT NULL,
+    id_status INTEGER NOT NULL,
+    kit TEXT NOT NULL,
+    FOREIGN KEY (id_kind) REFERENCES equipment_kinds (id),
+    FOREIGN KEY (id_status) REFERENCES equipment_status (id),
 );
+
+CREATE TABLE IF NOT EXISTS transaction_kinds (
+    id INTEGER PRIMARY KEY,
+    kind TEXT NOT NULL
+);
+
+INSERT INTO transaction_kinds VALUES
+(0, 'Parado'), (1, 'Retirado'), (3, 'Devolvido'),
+(4, 'Manutenção'), (5, 'Removido');
 
 CREATE TABLE IF NOT EXISTS transactions (
     id INTEGER PRIMARY KEY,
     created_at TIMESTAMP NOT NULL,
     id_equipment INTEGER NOT NULL,
-    kind INTEGER NOT NULL,
+    id_kind INTEGER NOT NULL,
     from_employer INTEGER NOT NULL,
     to_employer INTEGER NOT NULL,
     note TEXT DEFAULT NULL,
+    FOREIGN KEY (id_kind) REFERENCES transaction_kinds (id),
     FOREIGN KEY (id_equipment) REFERENCES equipments (id),
-	FOREIGN KEY (from_employer) REFERENCES employers (id),
-	FOREIGN KEY (to_employer) REFERENCES employers (id)
+    FOREIGN KEY (from_employer) REFERENCES employers (id),
+    FOREIGN KEY (to_employer) REFERENCES employers (id)
 );
 
 CREATE INDEX IF NOT EXISTS idx_transactions_equipment ON transactions (id_equipment, created_at DESC);
