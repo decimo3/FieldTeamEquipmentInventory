@@ -31,6 +31,7 @@ AUTH_SCREEN_TITLE_LBL=Autenticar usuário
 AUTH_SCREEN_FINGER_BTN=Capturar biometria
 AUTH_SCREEN_FINGER_WAIT_LBL=Aguardando registro da biometria...
 AUTH_SCREEN_FINGER_SUCCESS_LBL=Reconhecimento realizado com sucesso!
+AUTH_SCREEN_AUTH_SUCCESS_MSG=Funcionário reconhecido:\n\n{0} - {1}
 AUTH_SCREEN_FINGER_FAILURE_LBL=Não foi possível reconhecer a biometria!
 AUTH_SCREEN_FINGER_CANCELED_LBL=Captura de biometria cancelada!
 
